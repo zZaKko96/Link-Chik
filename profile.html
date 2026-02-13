@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профіль - Link-Chik</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-scissors"></i> Link-Chik
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Головна</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">Про додаток</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="profile.html"><i class="bi bi-person-circle"></i> Профіль</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light btn-sm ms-2" href="login.html">Вихід</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        <div class="row g-5 justify-content-center">
+
+            <div class="col-md-4">
+                <div class="card shadow-sm text-center p-4">
+                    <div class="mb-3">
+                        <i class="bi bi-person-circle text-secondary" style="font-size: 5rem;"></i>
+                    </div>
+                    <h4 class="mb-1">Студент КПІ</h4>
+                    <p class="text-muted">Користувач Free-версії</p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary">Змінити фото</button>
+                        <button class="btn btn-outline-danger">Видалити акаунт</button>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mt-3">
+                    <div class="card-body">
+                        <h6 class="card-title text-muted">Статистика</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Скорочено посилань
+                                <span class="badge bg-primary rounded-pill">12</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Всього кліків
+                                <span class="badge bg-success rounded-pill">1,059</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0">Особиста інформація</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th scope="row" style="width: 30%;">Ім'я та Прізвище</th>
+                                    <td>Косарук Захар</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Email адреса</th>
+                                    <td>kosaruk.zahar@lll.kpi.ua</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Стать</th>
+                                    <td>Чоловіча</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Дата народження</th>
+                                    <td>04.03.2006</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Телефон</th>
+                                    <td>+380 99 123 45 67</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Дата реєстрації</th>
+                                    <td>10.02.2026</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="mt-4 text-end">
+                            <button class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i> Редагувати дані</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-4 mt-auto">
+        <div class="container text-center">
+            <p class="mb-1">&copy; 2026 Link-Chik. Всі права захищено.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

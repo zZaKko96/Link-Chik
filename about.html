@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Про додаток - Link-Chik</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-scissors"></i> Link-Chik
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Головна</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about.html">Про додаток</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html"><i class="bi bi-person-circle"></i> Профіль</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light btn-sm ms-2" href="login.html">Вихід</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+
+        <div class="row align-items-center mb-5">
+            <div class="col-md-5 text-center">
+                <i class="bi bi-scissors" style="font-size: 10rem;"></i>
+            </div>
+            <div class="col-md-7">
+                <h1 class="fw-bold mb-3">Що таке Link-Chik?</h1>
+                <p class="lead text-muted">Найзручніший інструмент для скорочення посилань в Інтернеті та за його межами.</p>
+                <p>
+                    Link-Chik — це навчальний веб-проєкт, розроблений студентом КПІ в рамках лабораторної роботи №1. Ми робимо ваші посилання такими короткими, що їх соромно показувати, але зручно клікати.
+                    Наш сервіс дозволяє перетворити довгі, складні URL-адреси на короткі та зрозумілі посилання, якими легко ділитися в соціальних мережах та месенджерах.
+                </p>
+
+                <h5 class="mt-4">Чому обирають нас?</h5>
+                <ul class="list-unstyled mt-3">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Швидкість:</strong> Миттєва генерація посилань.</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Зручність:</strong> Інтуїтивно зрозумілий інтерфейс.</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Адаптивність:</strong> Працює на телефоні, планшеті та ПК.</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <div class="row justify-content-center text-center">
+            <div class="col-12">
+                <h2 class="mb-4">Команда розробки</h2>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-laptop fs-1 text-primary"></i>
+                        </div>
+                        <h5 class="card-title">Студент групи КВ-32 Косарук Захар</h5>
+                        <p class="text-muted mb-1">Full Stack Developer</p>
+                        <p class="card-text small">Відповідає за розробку інтерфейсу, логіку роботи та дизайн додатку.</p>
+                        <a href="https://github.com/zZaKko96" class="btn btn-outline-dark btn-sm mt-2" target="_blank">
+                            <i class="bi bi-github"></i> Мій GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-dark text-white py-4 mt-auto">
+        <div class="container text-center">
+            <p class="mb-1">&copy; 2026 Link-Chik. Всі права захищено.</p>
+            <small class="text-secondary">Версія 1.0.0 (Alpha)</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
