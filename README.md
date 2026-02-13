@@ -24,6 +24,9 @@
 
 ---
 
+### 🔗 Посилання на звіт
+[> [Вставити посилання на Google Doc зі звітом тут]](https://drive.google.com/file/d/1-8Z0fH5F4ba7ONr2pkpSJqAFPPR_6kMZ/view?usp=sharing)
+
 ### 🌐 Переглянути сайт
 Жива версія сайту доступна за посиланням:
 [**https://zzakko96.github.io/Link-Chik/**](https://zzakko96.github.io/Link-Chik/)
