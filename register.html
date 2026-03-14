@@ -26,7 +26,7 @@
 
         .form-register {
             width: 100%;
-            max-width: 500px;
+            max-width: 500px; 
             padding: 15px;
         }
     </style>
@@ -46,7 +46,7 @@
                     <li class="nav-item"><a class="nav-link" href="index.html">Головна</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">Про додаток</a></li>
                 </ul>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav align-items-center">
                     <li class="nav-item">
                         <a class="nav-link active" href="login.html">Вхід</a>
                     </li>
@@ -64,15 +64,15 @@
                         <h2 class="h3 mb-3 fw-normal">Створити акаунт</h2>
                     </div>
 
-                    <form>
+                    <form onsubmit="return false;">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingName" placeholder="Іван Іванов" required>
-                            <label for="floatingName">Ваше ім'я</label>
+                            <input type="text" class="form-control" id="reg-name" placeholder="Іван Іванов" required>
+                            <label for="reg-name">Ваше ім'я</label>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
-                            <label for="floatingInput">Email адреса</label>
+                            <input type="email" class="form-control" id="reg-email" placeholder="name@example.com" required>
+                            <label for="reg-email">Email адреса</label>
                         </div>
 
                         <div class="row g-2 mb-3">
@@ -96,22 +96,22 @@
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
-                            <label for="floatingPassword">Пароль</label>
+                            <input type="password" class="form-control" id="reg-pass" placeholder="Password" required>
+                            <label for="reg-pass">Пароль</label>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingConfirmPassword" placeholder="Password" required>
-                            <label for="floatingConfirmPassword">Повторіть пароль</label>
+                            <input type="password" class="form-control" id="reg-pass-confirm" placeholder="Password" required>
+                            <label for="reg-pass-confirm">Повторіть пароль</label>
                         </div>
 
                         <div class="checkbox mb-3">
                             <label>
-                                <input type="checkbox" value="terms" required> Я погоджуюсь з умовами
+                                <input type="checkbox" id="reg-terms" value="terms" required> Я погоджуюсь з умовами
                             </label>
                         </div>
 
-                        <button class="w-100 btn btn-lg btn-primary" type="button" onclick="window.location.href='profile.html'">Зареєструватися</button>
+                        <button class="w-100 btn btn-lg btn-primary" type="button" id="reg-btn">Зареєструватися</button>
 
                         <hr class="my-4">
                         <p class="text-center text-muted small">Вже є акаунт? <a href="login.html">Увійти</a></p>
@@ -128,6 +128,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="module" src="js/app.js"></script>
 </body>
-
 </html>
