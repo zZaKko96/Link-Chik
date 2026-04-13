@@ -5,14 +5,10 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.static('.'));
-app.use(express.json()); // Щоб сервер розумів формат JSON від клієнта
+app.use(express.json()); 
 
 setupDB().then((db) => {
     app.locals.db = db;
-
-    // ==========================================
-    // 🚦 API МАРШРУТИ (ROUTES)
-    // ==========================================
 
     // 1. Реєстрація користувача (POST запит)
     app.post('/api/register', async (req, res) => {
@@ -62,12 +58,12 @@ setupDB().then((db) => {
         const { userId, originalUrl } = req.body;
         
         try {
-            // Звертаємося до зовнішнього API для генерації короткого лінка (як ти робив раніше)
+            // Звертаємося до зовнішнього API для генерації короткого лінка
             const response = await fetch(`https://is.gd/create.php?format=json&url=${encodeURIComponent(originalUrl)}`);
             const data = await response.json();
             const shortUrl = data.shorturl || 'Помилка API';
 
-            // Зберігаємо в нашу базу
+            // Зберігаємо в базу
             const result = await db.run(
                 `INSERT INTO links (userId, originalUrl, shortUrl, clicks) VALUES (?, ?, ?, 0)`,
                 [userId, originalUrl, shortUrl]
