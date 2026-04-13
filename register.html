@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -55,7 +57,7 @@
         </div>
     </nav>
 
-    <main class="container">
+    <main class="container" id="app">
         <div class="form-register m-auto">
             <div class="card shadow border-0">
                 <div class="card-body p-5">
@@ -66,52 +68,52 @@
 
                     <form onsubmit="return false;">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="reg-name" placeholder="Іван Іванов" required>
-                            <label for="reg-name">Ваше ім'я</label>
+                            <input type="text" class="form-control" v-model="name" placeholder="Іван Іванов" required>
+                            <label>Ваше ім'я</label>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="reg-email" placeholder="name@example.com" required>
-                            <label for="reg-email">Email адреса</label>
+                            <input type="email" class="form-control" v-model="email" placeholder="name@example.com" required>
+                            <label>Email адреса</label>
                         </div>
 
                         <div class="row g-2 mb-3">
                             <div class="col-md">
                                 <div class="form-floating">
-                                    <select class="form-select" id="floatingSelect" aria-label="Стать">
-                                        <option selected>Оберіть...</option>
-                                        <option value="1">Чоловіча</option>
-                                        <option value="2">Жіноча</option>
-                                        <option value="3">Не вказувати</option>
+                                    <select class="form-select" v-model="gender" aria-label="Стать">
+                                        <option value="Оберіть..." disabled>Оберіть...</option>
+                                        <option value="Чоловіча">Чоловіча</option>
+                                        <option value="Жіноча">Жіноча</option>
+                                        <option value="Не вказувати">Не вказувати</option>
                                     </select>
-                                    <label for="floatingSelect">Стать</label>
+                                    <label>Стать</label>
                                 </div>
                             </div>
                             <div class="col-md">
                                 <div class="form-floating">
-                                    <input type="date" class="form-control" id="floatingDate" required>
-                                    <label for="floatingDate">Дата народження</label>
+                                    <input type="date" class="form-control" v-model="rawDate" required>
+                                    <label>Дата народження</label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="reg-pass" placeholder="Password" required>
-                            <label for="reg-pass">Пароль</label>
+                            <input type="password" class="form-control" v-model="password" placeholder="Password" required>
+                            <label>Пароль</label>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="reg-pass-confirm" placeholder="Password" required>
-                            <label for="reg-pass-confirm">Повторіть пароль</label>
+                            <input type="password" class="form-control" v-model="confirmPassword" placeholder="Password" required>
+                            <label>Повторіть пароль</label>
                         </div>
 
                         <div class="checkbox mb-3">
                             <label>
-                                <input type="checkbox" id="reg-terms" value="terms" required> Я погоджуюсь з умовами
+                                <input type="checkbox" v-model="termsAccepted" required> Я погоджуюсь з умовами
                             </label>
                         </div>
 
-                        <button class="w-100 btn btn-lg btn-primary" type="button" id="reg-btn">Зареєструватися</button>
+                        <button class="w-100 btn btn-lg btn-primary" @click.prevent="registerUser">Зареєструватися</button>
 
                         <hr class="my-4">
                         <p class="text-center text-muted small">Вже є акаунт? <a href="login.html">Увійти</a></p>
@@ -128,6 +130,72 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script type="module" src="js/app.js"></script>
+    
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    name: '',
+                    email: '',
+                    gender: 'Оберіть...',
+                    rawDate: '',
+                    password: '',
+                    confirmPassword: '',
+                    termsAccepted: false
+                }
+            },
+            methods: {
+                async registerUser() {
+                    // Валідація полів
+                    if (!this.name || !this.email || !this.password || !this.confirmPassword || 
+                        this.gender === "Оберіть..." || !this.rawDate || !this.termsAccepted) {
+                        alert("Помилка! Заповніть усі поля, оберіть стать, дату і поставте галочку!");
+                        return;
+                    }
+
+                    // Перевірка збігу паролів
+                    if (this.password !== this.confirmPassword) {
+                        alert("Помилка! Паролі не збігаються. Спробуйте ще раз.");
+                        this.confirmPassword = ''; // Очищаємо поле повтору пароля
+                        return;
+                    }
+
+                    // Форматуємо дату з РРРР-ММ-ДД у ДД.ММ.РРРР
+                    const parts = this.rawDate.split('-');
+                    const formattedDate = `${parts[2]}.${parts[1]}.${parts[0]}`;
+
+                    try {
+                        // Відправляємо дані на наш бекенд
+                        const response = await fetch('/api/register', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                name: this.name,
+                                email: this.email,
+                                password: this.password,
+                                gender: this.gender,
+                                date: formattedDate
+                            })
+                        });
+
+                        const result = await response.json();
+
+                        if (result.success) {
+                            alert("Реєстрація успішна! Увійдіть у систему.");
+                            window.location.href = 'login.html'; // Перекидаємо на сторінку входу
+                        } else {
+                            // Наприклад, якщо такий email вже існує
+                            alert(result.message);
+                        }
+                    } catch (error) {
+                        console.error("Помилка:", error);
+                        alert("Не вдалося з'єднатися з сервером.");
+                    }
+                }
+            }
+        }).mount('#app');
+    </script>
 </body>
 </html>

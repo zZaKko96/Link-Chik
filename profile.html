@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -14,7 +16,6 @@
             flex-direction: column;
             min-height: 100vh;
         }
-
         main {
             flex: 1;
         }
@@ -22,6 +23,7 @@
 </head>
 <body>
 
+<div id="app" style="display: flex; flex-direction: column; min-height: 100vh;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">
@@ -36,30 +38,30 @@
                     <li class="nav-item"><a class="nav-link" href="about.html">Про додаток</a></li>
                 </ul>
                 <ul class="navbar-nav align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="profile.html"><i class="bi bi-person-circle"></i> Профіль</a>
+                    <li class="nav-item" v-if="activeUser">
+                        <a class="nav-link active" href="profile.html"><i class="bi bi-person-circle"></i> {{ activeUser.name }}</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="btn btn-light btn-sm ms-2" href="login.html">Вихід</a>
+                    <li class="nav-item" v-if="activeUser">
+                        <a class="btn btn-light btn-sm ms-2" href="#" @click.prevent="logout">Вихід</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <main class="container py-5" id="profile-container" style="display: none;">
+    <main class="container py-5" v-if="activeUser">
         <div class="row g-5 justify-content-center">
 
             <div class="col-md-4">
                 <div class="card shadow-sm text-center p-4">
                     <div class="mb-3">
-                        <img id="prof-avatar" src="https://via.placeholder.com/150" alt="Avatar" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+                        <img :src="activeUser.photo || 'https://via.placeholder.com/150'" alt="Avatar" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
                     </div>
-                    <h4 class="mb-1" id="prof-title">Студент КПІ</h4>
-                    <p class="text-muted">Користувач Free-версії</p>
+                    <h4 class="mb-1">{{ activeUser.name }}</h4>
+                    <p class="text-muted">Зареєстровано: {{ activeUser.regDate }}</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" id="btn-change-photo">Змінити фото</button>
-                        <button class="btn btn-outline-danger" id="btn-delete-account">Видалити акаунт</button>
+                        <button class="btn btn-primary" @click="changePhoto">Змінити фото</button>
+                        <button class="btn btn-outline-danger" @click="deleteAccount">Видалити акаунт</button>
                     </div>
                 </div>
 
@@ -69,11 +71,11 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Скорочено посилань
-                                <span class="badge bg-primary rounded-pill" id="stats-links-count">0</span>
+                                <span class="badge bg-primary rounded-pill">{{ stats.totalLinks }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Всього кліків
-                                <span class="badge bg-success rounded-pill" id="stats-clicks-count">0</span>
+                                <span class="badge bg-success rounded-pill">{{ stats.totalClicks }}</span>
                             </li>
                         </ul>
                     </div>
@@ -90,33 +92,29 @@
                             <tbody>
                                 <tr>
                                     <th scope="row" style="width: 30%;">Ім'я та Прізвище</th>
-                                    <td id="prof-name">Косарук Захар</td>
+                                    <td>{{ activeUser.name }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Email адреса</th>
-                                    <td id="prof-email">kosaruk.zahar@lll.kpi.ua</td>
+                                    <td>{{ activeUser.email }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Стать</th>
-                                    <td id="prof-gender">Чоловіча</td>
+                                    <td>{{ activeUser.gender || 'Не вказано' }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Дата народження</th>
-                                    <td id="prof-date">04.03.2006</td>
+                                    <td>{{ activeUser.date || 'Не вказано' }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Телефон</th>
-                                    <td id="prof-phone">+380 99 123 45 67</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Дата реєстрації</th>
-                                    <td id="prof-reg-date">10.02.2026</td>
+                                    <td>{{ activeUser.phone || 'Не вказано' }}</td>
                                 </tr>
                             </tbody>
                         </table>
 
                         <div class="mt-4 text-end">
-                            <button class="btn btn-outline-primary" id="btn-edit-profile"><i class="bi bi-pencil-square"></i> Редагувати дані</button>
+                            <button class="btn btn-outline-primary" @click="editProfile"><i class="bi bi-pencil-square"></i> Редагувати дані</button>
                         </div>
                     </div>
                 </div>
@@ -129,8 +127,143 @@
             <p class="mb-1">&copy; 2026 Link-Chik. Всі права захищено.</p>
         </div>
     </footer>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script type="module" src="js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const { createApp } = Vue;
+
+    createApp({
+        data() {
+            return {
+                activeUser: null,
+                stats: {
+                    totalLinks: 0,
+                    totalClicks: 0
+                }
+            }
+        },
+        mounted() {
+            const userStr = sessionStorage.getItem('activeUser') || localStorage.getItem('activeUser');
+            if (userStr) {
+                this.activeUser = JSON.parse(userStr);
+                this.fetchStats(); // Стягуємо статистику з сервера
+            } else {
+                window.location.href = 'login.html';
+            }
+        },
+        methods: {
+            // Отримуємо посилання, щоб порахувати загальну статистику
+            async fetchStats() {
+                try {
+                    const response = await fetch(`/api/links/${this.activeUser.id}`);
+                    const links = await response.json();
+                    this.stats.totalLinks = links.length;
+                    this.stats.totalClicks = links.reduce((sum, link) => sum + (link.clicks || 0), 0);
+                } catch (error) {
+                    console.error("Помилка:", error);
+                }
+            },
+
+            // Універсальна функція для оновлення профілю на сервері
+            async updateBackendUser(updatedData) {
+                try {
+                    const response = await fetch(`/api/users/${this.activeUser.id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(updatedData)
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        this.activeUser = result.user; // Оновлюємо дані на екрані
+                        
+                        // Оновлюємо кеш у браузері
+                        if (localStorage.getItem('activeUser')) {
+                            localStorage.setItem('activeUser', JSON.stringify(result.user));
+                        } else {
+                            sessionStorage.setItem('activeUser', JSON.stringify(result.user));
+                        }
+                    } else {
+                        alert("Не вдалося оновити профіль");
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            async editProfile() {
+                const newName = prompt("Введіть нове ім'я:", this.activeUser.name);
+                if (newName === null) return;
+
+                const newEmail = prompt("Введіть новий Email:", this.activeUser.email);
+                if (newEmail === null) return;
+
+                const newPhone = prompt("Введіть новий номер телефону:", this.activeUser.phone || "+380");
+                if (newPhone === null) return;
+
+                let newGender = prompt("Введіть стать (Чоловіча / Жіноча / Не вказувати):", this.activeUser.gender);
+                if (newGender === null) return;
+                while (newGender !== "Чоловіча" && newGender !== "Жіноча" && newGender !== "Не вказувати") {
+                    newGender = prompt("Помилка! Дозволено ТІЛЬКИ: Чоловіча, Жіноча або Не вказувати", this.activeUser.gender);
+                    if (newGender === null) return;
+                }
+
+                let newDate = prompt("Введіть дату народження (формат ДД.ММ.РРРР):", this.activeUser.date);
+                if (newDate === null) return;
+                const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/; 
+                while (!dateRegex.test(newDate)) {
+                    newDate = prompt("Помилка! Формат має бути строго ДД.ММ.РРРР (наприклад, 04.03.2006):", this.activeUser.date);
+                    if (newDate === null) return;
+                }
+                
+                // Збираємо оновлені дані і шлемо на бекенд
+                await this.updateBackendUser({
+                    name: newName,
+                    email: newEmail,
+                    phone: newPhone,
+                    gender: newGender,
+                    date: newDate,
+                    photo: this.activeUser.photo // Залишаємо старе фото
+                });
+            },
+
+            async changePhoto() {
+                const photoUrl = prompt("Вставте пряме посилання (URL) на будь-яке фото з інтернету:");
+                if (photoUrl) {
+                    // Копіюємо старі дані, але змінюємо photo
+                    await this.updateBackendUser({
+                        ...this.activeUser,
+                        photo: photoUrl
+                    });
+                }
+            },
+
+            async deleteAccount() {
+                const isSure = confirm("Ви впевнені, що хочете назавжди видалити свій акаунт та всі посилання?");
+                if (!isSure) return;
+
+                try {
+                    const response = await fetch(`/api/users/${this.activeUser.id}`, { method: 'DELETE' });
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        alert("Акаунт успішно видалено!");
+                        this.logout();
+                    }
+                } catch (error) {
+                    console.error("Помилка видалення:", error);
+                }
+            },
+
+            logout() {
+                localStorage.removeItem('activeUser');
+                sessionStorage.removeItem('activeUser');
+                window.location.href = 'login.html';
+            }
+        }
+    }).mount('#app');
+</script>
+
 </body>
 </html>
